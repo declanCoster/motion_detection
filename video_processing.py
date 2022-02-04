@@ -28,7 +28,7 @@ while vid.isOpened():                       # loop through frames
     # calculate the standard deviation in the difference photo
     cv2.imwrite(os.path.join('diffs',f'{count}_diff.png'), diff_frame)
     # write difference image
-    diff_thresh = cv2.threshold(diff_frame, 50, 255, cv2.THRESH_BINARY)[1]
+    diff_thresh = cv2.threshold(diff_frame, 75, 255, cv2.THRESH_BINARY)[1]
     square = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
     diff_thresh = cv2.erode(diff_thresh, square)
     diff_thresh = cv2.dilate(diff_thresh, square, iterations=2)
@@ -56,7 +56,7 @@ while vid.isOpened():                       # loop through frames
 
     if object_noticed and (max_row - min_row) + (max_col - min_col) >= 50:
         # the last part of the if is to try and reduce small rectangles that won't be useful
-        # this is sort of another noise reduction step.
+        # this is sort of another noise reduction step.git 
         cv2.rectangle(frame, (min_col, min_row), (max_col, max_row), (0,0,255), 3)
     cv2.imwrite(os.path.join('selected', f'{count}_sel.png'), frame)
 
